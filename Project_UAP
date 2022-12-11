@@ -1,0 +1,4 @@
+import os, time, requests, json
+
+req = requests.get("https://github.com/tomorisakura/unofficial-masakapahariini-api")
+content = json.loads(req.text)
