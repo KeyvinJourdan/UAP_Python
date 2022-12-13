@@ -1,4 +1,80 @@
-import os, time, requests, json
+#API, Module
+import os, time, json, requests
+category = requests.get('https://masak-apa-tomorisakura.vercel.app/api/category/recipes')
+new = requests.get('https://masak-apa-tomorisakura.vercel.app//api/recipes')
+rec = category.json()
 
-req = requests.get("https://github.com/tomorisakura/unofficial-masakapahariini-api")
-content = json.loads(req.text)
+def mainMenu():
+    #Operator
+    print('=' * 40)
+    #Input-Output-Tipe Data
+    menu = ["1. Recipes By Category", 
+            "2. New Recipes",
+            "3. Exit"]
+    for i in menu:
+        print(i)
+    print('=' * 40)
+    print("Pilih salah satu: ")
+    
+    try:
+      pilihMenu = input()
+
+      #if statement
+      if pilihMenu == '1':
+              masak.byCategory()
+      elif pilihMenu == '2':
+              masak.byLatest()
+      elif pilihMenu == '3':
+              #String Method
+              print("exit").capitalize()
+              exit()
+      else:
+              os.system('cls')
+              mainMenu()
+    except:
+      print('>>Inputan Salah<<')
+      time.sleep(1)
+      mainMenu()
+      
+
+#Class
+class masak: 
+    #Function
+    def byCategory():
+        #List
+        listCategory = ["1. Dessert", 
+                  "2. Masakan Hari Raya", 
+                  "3. Masakan Tradisional", 
+                  "4. Menu Makan Malam", 
+                  "5. Menu Makan Siang", 
+                  "6. Resep Ayam", 
+                  "7. Resep Daging", 
+                  "8. Resep Sayuran", 
+                  "9. Resep Seafood", 
+                  "10. Menu Sarapan"]
+        print('=' * 40)
+        print('Recipe By Category')
+        #Looping
+        for i in listCategory:
+            print(i)
+        print('=' * 40)
+        
+        choose = input('Input menu\t: ')
+
+        f = open("history.txt", "a")
+        f.write("\n" + choose)
+        
+        f.close()
+
+        for i in (rec['results']):
+          if i['category'] == choose:
+            
+            print(f"Kategori\t: {i['category']}")
+            print(f"url \t\t: {i['url']}")
+
+    def byLatest():
+        new.json()
+
+
+if __name__=='__main__':
+    mainMenu()
